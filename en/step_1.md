@@ -1,6 +1,6 @@
 ## Introduction
 
-Make a 3-D space game using the Unity platform.
+Make a 3D space game using the Unity platform.
 
 ### What you will make
 

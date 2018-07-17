@@ -29,8 +29,15 @@ title: How to get Unity
 
 + Download the starter project from [dojo.soy/IntermediateUnityStarter](http://dojo.soy/IntermediateUnityStarter). This has all of the assets you need to create a game with these Sushi Cards! You won't need to make your own new Unity Project, because this creates a project for you. You will need to unzip the file you downloaded and open the project in Unity.
 
+--- collapse ---
+---
+title: I want different assets than those in the download
+---
+
 + You might want to find different assets on the Unity Asset Store (if you don't like the ones in the download). In Unity go to **Window > Asset Store** and click on "Filters" (on the right of the search bar). Now click "FREE ONLY". 
 
-    ![](imagesimagestoreClickFree.PNG)
-    
-     Another option is downloading assets from [dojo.soy/OpenGameArt](http://dojo.soy/OpenGameArt). You can download different assets and use them to change what your game looks like!
+![](images/imagestoreClickFree.PNG)
+
++ Another option is downloading assets from [dojo.soy/OpenGameArt](http://dojo.soy/OpenGameArt). You can download different assets and use them to change what your game looks like!
+
+--- /collapse ---
