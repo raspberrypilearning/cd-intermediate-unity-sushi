@@ -1,22 +1,16 @@
 ## Introduction
 
-Add project description here. What will learners be making?
+Make a 3-D space game using the Unity platform.
 
 ### What you will make
 
-Add something here to showcase here, for example:
+In these Sushi Cards you will learn how to make a game that is similar to the classic Asteroids game! The player will control a space drone that is flying through asteroids. You will learn how to use mouse input, move other objects that aren't your player, and how to send the game to your friends.
 
-<div class="scratch-preview">
-  <iframe allowtransparency="true" width="485" height="402" src="https://scratch.mit.edu/projects/embed/160619869/?autostart=false" frameborder="0"></iframe>
-</div>
+![](images/FinishedGame.png)
 
-Add instructions here. These should explain either how the finished project will work, or explain how to interact with the content above.
 
 ### What you will learn
 
-This project covers elements from the following strands of the [Raspberry Pi Digital Making Curriculum](http://rpf.io/curriculum){:target="_blank"}:
-
-+ [Add curriculum strand/level description.](https://www.raspberrypi.org/curriculum/strand/level){:target="_blank"}
 
 ### Additional information for educators
 
