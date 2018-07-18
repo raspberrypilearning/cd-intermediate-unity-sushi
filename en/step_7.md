@@ -2,7 +2,7 @@
 
 You have all the components of your game working now. Awesome, but... they don't do anything when they **collide**. **Colliding** is when two objects touch each other. You need to detect the **collision** between the game's objects and write some scripts that do something when a **collision** is detected.
 
-+ Before you start, tagging the asteroid prefab will be helpful. Tag the asteroid prefab with "asteroid". Also take this step to attach the "DestoryLaser" and "DestroyAsteroid" scripts to their prefabs.
++ Before you start, tagging the asteroid prefab will be helpful. Tag the asteroid prefab with "asteroid". Also take this step to attach the "DestroyLaser" and "DestroyAsteroid" scripts to their prefabs.
 
 + Open the C# script called "DestroyLaser". Add the following code to the script:
 

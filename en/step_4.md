@@ -1,8 +1,10 @@
 ## Moving the Player
 
-+ Create a folder in your Assets folder and name it `Scripts`. Now create a new C# script in your new "Scripts folder". When you create a script you want to know what it does, so lets give it a descriptive name. You could use `PlayerController`. Attach this code to your "Player" object.
++ Create a folder in your Assets folder and name it `Scripts`. Now create a new C# script in your new "Scripts folder". When you create a script you want to know what it does, so lets give it a descriptive name. You could use `PlayerController`.
 
-+ Open your new script and add this code to the **Update()** function. 
++ Attach this script to your "Player" object.
+
++ Open your new script and add this code to the `Update()` function. 
 
 ```csharp
 Vector3 mousePos = Input.mousePosition;  
@@ -27,7 +29,7 @@ The last line moves our "player" object to the position of our mouse!      `tran
 
 + Now try to run your game! What is something that you might want to change about where the "player" object goes?
      
-+ Did you notice that the "Player" object doesn't stay on the screen? You can fix this by adding this bit of code underneath the code you added in step 2!
++ Did you notice that the "Player" object doesn't stay on the screen? You can fix this by adding this bit of code underneath the code you just added.
     
 ```csharp
 Vector3 spritePos = Camera.main.WorldToViewportPoint(transform.position);
@@ -43,7 +45,7 @@ title: What does the code do?
   
 The first line of code here gets the position of our "Player" object.
 
-You can then use the **Mathf** function **Clamp** to keep the "Player object within the camera's viewport. **Clamp** stops the position of the "Player" object coordinates on the x, y axis from exceeding the given values.
+You can then use the `Mathf` function `Clamp` to keep the "Player" object within the camera's viewport. `Clamp` stops the position of the "Player" object coordinates on the x, y axis from exceeding the given values.
 
 --- /collapse ---
 

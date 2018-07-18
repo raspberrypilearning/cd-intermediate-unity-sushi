@@ -25,8 +25,6 @@ Did you notice that the spaceship has a shadow? It doesn't look very good, so yo
 
 + In the "Directional Light" **Inspector** click the "Layers" drop down on the top right.
 
-![](images/LightInspector.png)
-
 + Click "Add Layer...". In the first open layer type `Background`.
 
 + Go back to the "Directional Light" **Inspector**. Click the **Culling Mask** drop down menu and select "Everything". Now deselect the "Background" in the **Culling Mask**. The **Culling Mask** will now say "Mixed...".
@@ -41,6 +39,7 @@ To control the game with scripts without attaching them to a 3D object, "Empty O
 
 + Create another "Empty Object" called `Lasers`. 
 
-Your scene should look like this when it is done!
+Your scene should look something like this when it is done. (You can use the icons in the top right of the scene to look at it from different angles!)
     
-![](images/SceneComplete.png)
+![The finished scene](images/SceneComplete.png)
+![The finished scene viewed from above](images/step3_SceneComplete2.png)
