@@ -2,7 +2,9 @@
 
 You have all the components of your game working now. Awesome, but... they don't do anything when they **collide**. **Colliding** is when two objects touch each other. You need to detect the **collision** between the game's objects and write some scripts that do something when a **collision** is detected.
 
-+ Before you start, tagging the asteroid prefab will be helpful. Tag the asteroid prefab with "asteroid". Also take this step to attach the "DestroyLaser" and "DestroyAsteroid" scripts to their prefabs.
++ Before you start, tagging the asteroid prefab will be helpful. Tag the asteroid prefab with "asteroid". Also take this step to attach the "DestroyLaser" and "DestroyAsteroid" scripts to their game objects if you haven't already done so.
+
+### Lasers colliding with asteroids
 
 + Open the C# script called "DestroyLaser". Add the following code to the script:
 
@@ -18,6 +20,12 @@ public void OnCollisionEnter(Collision col)
 }
 ```
   
++ Now open the "CreateLasers" script and add the following line underneath `GameObject laserClone = Instantiate(laser, createPosition, transform.rotation);`
+
+```csharp
+laserClone.AddComponent<DestroyLaser>();
+```
+
 --- collapse ---
 ---
 title: What does the code do?
@@ -31,6 +39,13 @@ Within this function you have two **GameObjects** `col.gameObject` and `gameObje
 
 The `if` statement is to make sure that if the laser collided with an asteroid (which will be tagged "asteroid"), then the two objects will be destroyed.
 
+Finally, you need to attach the "DestroyLaser" script to each new **instance** of the laser game object. You do this in the "CreateLasers" script, after instantiating the clone:
+
+```csharp
+GameObject laserClone = Instantiate(laser, createPosition, transform.rotation);
+laserClone.AddComponent<DestroyLaser>();
+```
+
 --- /collapse ---
 
 Since you're destroying asteroids, you could make it play a sound!
@@ -41,15 +56,28 @@ Since you're destroying asteroids, you could make it play a sound!
 
 + Finally, uncheck the "Play On Awake" property. 
 
-+ To play the **AudioSource** some code needs to be added into the `if` statement you made in 3rd step.
+![The Play On Awake checkbox is unticked](images/step7_playOnAwake.png)
+
++ To play the **AudioSource** some code needs to be added into the `if` statement you made above.
 
 ```csharp
 AudioSource audio = GameObject.Find("AsteroidExplosion").GetComponent<AudioSource>();
 audio.Play();
 ```
-    
-This code finds the game object you made with the first line. The second line plays the sound that you added to the **AudioSource**.
-    
+
+--- collapse ---
+---
+title: What does the code do?
+---
+
+The first line finds the game object you made.
+
+The second line tells the game object to play the sound that you added to the **AudioSource**.
+
+--- /collapse ---
+
+### Collisions with the player
+
 Now you can detect a collision with an asteroid and the laser, but not your "Player" **GameObject** and an asteroid.
 
 + Add this code to your "PlayerController" script under the `Update()` function:

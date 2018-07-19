@@ -28,6 +28,21 @@ The last line moves our "player" object to the position of our mouse!      `tran
 --- /collapse ---
 
 + Now try to run your game! What is something that you might want to change about where the "player" object goes?
+
+--- collapse ---
+---
+title: Getting a better view
+---
+
+It can be helpful to arrange your Unity window so that you can see both the **Scene** tab and the **Game** tab at the same time when you test your game.
+
+In the **Scene** view you can change the angle you're viewing from, and zoom out so that you can see objects that go "off the screen".
+
+This can be quite useful when an object is not appearing and you want to work out why, or where it went, for example.
+
+![The Scene and Game view with the Scene zoomed out](images/SceneGameTabs_zoomOut.png)
+
+--- /collapse ---
      
 + Did you notice that the "Player" object doesn't stay on the screen? You can fix this by adding this bit of code underneath the code you just added.
     
@@ -37,7 +52,7 @@ spritePos.x = Mathf.Clamp(spritePos.x, 0.05f, 0.95f);
 spritePos.y = Mathf.Clamp(spritePos.y, 0.1f, 0.9f);
 transform.position = Camera.main.ViewportToWorldPoint(spritePos);
 ```
-  
+
 --- collapse ---
 ---
 title: What does the code do?

@@ -13,6 +13,6 @@ steps:
   - title: Creating Obstacles
   - title: Creating Projectiles
   - title: Detecting Collisions
-  - title: GUI
+  - title: Display the score
   - title: Sharing Your Game
   - title: Go Further

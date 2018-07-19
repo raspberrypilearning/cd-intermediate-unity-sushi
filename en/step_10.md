@@ -8,4 +8,4 @@ Now that you're done with the game you can change it up a little. Here are some 
 
 + Try getting another asset from the resources listed on the front page. Try and create them like you did with the asteroids. **Hint:** You need to make your asset into a prefab first! Go back to the first tutorial if you don't remember how to make a prefab.
 
-+ Learn more about the programming language you have been using with Unity: C#. Here is a link to Microsoft's Beginner tutorial [dojo.soy/CSharpTutorial](http://dojo.soy/CSharpTutorial).
++ Learn more about the programming language you have been using with Unity: C#. Here is a link to Microsoft's Beginner tutorial [dojo.soy/CSharpTutorial](http://dojo.soy/CSharpTutorial){:target="_blank"}.

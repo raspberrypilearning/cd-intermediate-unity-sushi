@@ -23,15 +23,19 @@ title: What does the code do?
 
 To understand what's happening here you need to know what **instantiate** means.
 
-**Instantiating** something is like building something from plans or instructions. If you're baking a cake, the cake is the **instance** and the recipe is the **Instantiate()** function. In the game world, your cake is instead a **GameObject**!
+**Instantiating** something is like building something from plans or instructions. If you're baking a cake, the cake is the **instance** and the recipe is the `Instantiate()` function. In the game world, your cake is instead a **GameObject**!
 
 --- /collapse ---
 
-+ Drag the Asteroid prefab form the "Prefabs" folder and drop it into the "asteroid" box for your "CreateAsteroids" script in the **Inspector** for your "Asteroids" object.
++ Drag the Asteroid prefab from the "Prefabs" folder and drop it into the "asteroid" box for your "CreateAsteroids" script in the **Inspector** for your "Asteroids" object.
+
+![The asteroid prefab in the script](images/step5_asteroidPrefabInVar.png)
 
 + Save everything (**File > Save Scenes**) and try running your game.
 
 WOAH! That was a lot of asteroids being created! 
+
+![Lots of asteroid clone game objects](images/step5_lotsOfAsteroidClones.png)
 
 The `Update()` function happens really fast so a lot of asteroids get created. You can control how fast the asteroids are created with the `InvokeRepeating()` function. 
 
@@ -60,10 +64,26 @@ If you create too many objects, your computer wont be able to keep track of them
 
 + Add `Destroy(gameObject, 10f);` to the `Start()` function of the script.
  
-In the code you just added, **gameObject** is the object the script is attached to. `10f` destroys the asteroid after ten seconds.
+--- collapse ---
+---
+title: What does the code do?
+---
+
+Your `Start()` function should look like this:
+
+```csharp
+void Start () {
+  Destroy(gameObject, 10f);
+}
+```
+
+`gameObject` is the object the script is attached to (i.e. the asteroid clone).
+
+`10f` means the asteroid will get destroyed after ten seconds.
  
-### Making the asteroids move
-Lets make your asteroids move!
+--- /collapse ---
+
+### Lets make your asteroids move!
 
 + Go back to the "CreateAsteroids" script and add this **above** `Start()`:
 

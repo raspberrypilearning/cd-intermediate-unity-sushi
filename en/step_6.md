@@ -32,15 +32,15 @@ Notice this looks similar to the obstacle that you just created. You've added an
 
 You don't wan't to create the laser inside of the spaceship so adding 1 to the y value will stop that. 
 
-You might not have seen this operator before `pos.y += 1f;`. Coders are pretty lazy and using these "shorthand" operators allow us to shorten code. `a += b` is the same as ` a = a + b`, but notice how much shorter the first one is! Here is a list of the shorthand operators in C#: [dojo.soy/CSharpShortOps](http://dojo.soy/CSharpShortOps).
+You might not have seen this operator before `pos.y += 1f;`. Coders are pretty lazy and using these "shorthand" operators allow us to shorten code. `a += b` is the same as ` a = a + b`, but notice how much shorter the first one is! Here is a list of the shorthand operators in C#: [dojo.soy/CSharpShortOps](http://dojo.soy/CSharpShortOps){:target="_blank"}.
 
 --- /collapse ---
 
 With this code, left clicking the mouse is the trigger for firing a laser.
 
-+ If you want, try to allow the player to fire a laser when they press a different button like the spacebar. You can find other input options here: [dojo.soy/CSharpInputs](http://dojo.soy/CSharpInputs).
++ If you want, try to allow the player to fire a laser when they press a different button like the spacebar. You can find other input options here: [dojo.soy/CSharpInputs](http://dojo.soy/CSharpInputs){:target="_blank"}.
 
-+ Now, just attach the "Laser" prefab and "Player" **GameObject** to the script.
++ Now, just attach the "Laser" **Prefab** and "Player" **GameObject** to the script.
   
 ### Getting the lasers to move
 
@@ -73,6 +73,7 @@ The code `laserClone.GetComponent<Rigidbody>()` gets the **Rigidbody** so that y
     
 + Try out your lasers now!
 
+### Adding sound
 Lasers make sounds, right? Lets add a sound to this laser.
 
 + Click on the laser in the "Prefabs" folder and add an **AudioSource** component (**Component > Audio > Audio Source**).
