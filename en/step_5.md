@@ -1,10 +1,12 @@
 ## Creating Obstacles
 
-You'll use a few scripts for your asteroids, so it's a good idea to make a folder for them to keep everything organized.
+You'll write a few scripts for your asteroids, so it's a good idea to make a special folder for them to keep everything organized.
 
 + Create a folder called `Asteroids` inside the `Scripts` folder. Now, you will need two new C# scripts: `CreateAsteroids` and `DestroyAsteroid`, so go ahead and create those as well.
 
-+ Attach the `CreateAsteroids` script to the `Asteroids` object and add this code:
++ Attach the `CreateAsteroids` script to the `Asteroids` object
+
++ Then add this code in the `CreateAsteroids` file:
 
 ```csharp
 public GameObject asteroid;
@@ -23,7 +25,7 @@ title: What does the code do?
 
 To understand what's happening here, you need to know what **'instantiate'** means.
 
-Instantiating something is like building something from plans or instructions. If you're baking a cake, the cake is the **instance** and the recipe is the `Instantiate()` function. In the game world, your cake is instead a **GameObject**!
+Instantiating something is like building something from plans or instructions. If you're baking a cake, the cake is the **instance** and the recipe is the `Instantiate()` function. In the game world, what's being instantiated with this code is not a cake but instead a **GameObject** called `asteroidClone`, using the `asteroid` 'recipe'.
 
 --- /collapse ---
 
@@ -33,7 +35,7 @@ Instantiating something is like building something from plans or instructions. I
 
 + Save everything (**File > Save Scenes**) and try running your game.
 
-WOAH! That was a lot of asteroids! 
+WOAH! That was a lot of asteroid clones! 
 
 ![Lots of asteroid clone game objects](images/step5_lotsOfAsteroidClones.png)
 
@@ -52,13 +54,13 @@ void Start()
 }
 ```
     
-+ Now change `Update()` to `createAsteroid()` and put the "asteroid" prefab into the the script's "asteroid" slot in the "Asteroids" object **Inspector**.
++ Now change `Update()` to `createAsteroid()` and put the Asteroid prefab into the the script's **asteroid** box in the `Asteroids` object Inspector.
 
-+ Save the script, and try running the game again. It should create asteroids much slower now.
++ Save the script, and try running the game again. It should create asteroids much more slowly now.
 
 ### Cleaning up asteroids
 
-If you create too many objects, your computer wont be able to keep track of them all. So when you create an asteroid you need to make sure it is destroyed. Let's use the `Destroy()` function in the `DestroyAsteroid` script:
+If you create too many objects, your computer wont be able to keep track of them all. So when you create an asteroid, you need to make sure it is destroyed at some point. Let's use the `Destroy()` function in the `DestroyAsteroid` script:
 
 + Attach the `DestroyAsteroid` script to the `Asteroids` object in the Hierarchy.
 
@@ -83,7 +85,7 @@ void Start () {
  
 --- /collapse ---
 
-### Lets make your asteroids move!
+### Make your asteroids move!
 
 + Go back to the `CreateAsteroids` script and add this **above** `Start()`:
 
@@ -119,7 +121,7 @@ Rigidbody asteroidCloneRB = asteroidClone.GetComponent<Rigidbody>();
 
 looks at the asteroid clone you just created and gets its **Rigidbody**.
 
-With the last line, you change the **Rigidbody**'s **velocity** property. `-(transform.up)` is the direction to move.
+With the last line, you're changing the **Rigidbody**'s **velocity** property. `-(transform.up)` is the direction to move.
 
 --- /collapse ---
 
@@ -127,9 +129,9 @@ With the last line, you change the **Rigidbody**'s **velocity** property. `-(tra
 
 ![](images/step5_setAsteroidSpeed.png) 
 
-### Randomising where the asteroids appear
+### Randomise where the asteroids appear
 
-Lets make it more fun by creating asteroids at different locations. To do this, you can write a function that returns a random position!
+Lets make it more fun by creating asteroids in different places. To do this, you can write a function that returns a random position!
 
 + Add this function to the `CreateAsteroids` script:
   
@@ -151,7 +153,7 @@ Putting `Vector3` instead of `void` in front of a function declaration means tha
   
 `Random.Range(.05f, .95f)` returns a random number between the two numbers given in the **parameters** (a parameter is anything within the parentheses following a function). In this case, that will be a random number in between `0.05` and `0.95`. 
     
-The camera's viewpoint dimensions are `1` × `1` (the bottom left being `(0,0)` and the top right being `(1,1)`). 
+The camera's viewpoint dimensions are `1` × `1` (the bottom left being `(0,0)` and the top right being `(1,1)`). So the random number `xPos` you'll be using as the X coordinate will always be within the dimensions of the viewpoint.
   
 You then create a Vector3 object called `randomPosition` and set it to:
   x — your randomly generated `x` position
