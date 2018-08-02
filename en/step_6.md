@@ -1,10 +1,10 @@
-## Creating Projectiles
+## Creating lasers
 
-+ Create a new folder called `Lasers` (make sure its in the "Scripts" folder). Now create two C# scripts:  `CreateLasers` and `DestroyLaser`.
++ Inside the `Scripts` folder, create a new folder called `Lasers`. Now create two C# scripts: `CreateLasers` and `DestroyLaser`.
 
 ### Firing lasers
 
-+ Start with creating a laser. Attach the "CreateLasers" script to the "Lasers" **GameObject**. Add this code: 
++ Start with creating a laser. Attach the `CreateLasers` script to the `Lasers` **GameObject**. Add this code: 
     
 ```csharp
 public GameObject laser;
@@ -26,17 +26,15 @@ void Update(){
 title: What does the code do?
 ---
 
-Notice this looks similar to the obstacle that you just created. You've added an `if` statement so that this block of code only runs when the player left clicks.
+Notice that this looks similar to the obstacle that you just created. You've added an `if` statement so that this block of code only runs when the player left clicks.
 
-`player.transform.location` is the center of the player **GameObject**. 
+`player.transform.location` is the center of the player **GameObject**, your spaceship. You don't wan't to create the laser inside of the spaceship, and adding `1` to the `y` value will prevent that. 
 
-You don't wan't to create the laser inside of the spaceship so adding 1 to the y value will stop that. 
-
-You might not have seen this operator before `pos.y += 1f;`. Coders are pretty lazy and using these "shorthand" operators allow us to shorten code. `a += b` is the same as ` a = a + b`, but notice how much shorter the first one is! Here is a list of the shorthand operators in C#: [dojo.soy/CSharpShortOps](http://dojo.soy/CSharpShortOps){:target="_blank"}.
+You might not have seen this operator here before: `pos.y += 1f;`. Coders are pretty lazy and using these "shorthand" operators allow us to shorten code. `a += b` is the same as ` a = a + b`, but notice how much shorter the first one is! Here is a list of the shorthand operators in C#: [dojo.soy/CSharpShortOps](http://dojo.soy/CSharpShortOps){:target="_blank"}.
 
 --- /collapse ---
 
-With this code, left clicking the mouse is the trigger for firing a laser.
+With this code, left-clicking the mouse is the trigger for firing a laser.
 
 + If you want, try to allow the player to fire a laser when they press a different button like the spacebar. You can find other input options here: [dojo.soy/CSharpInputs](http://dojo.soy/CSharpInputs){:target="_blank"}.
 
@@ -74,7 +72,7 @@ The code `laserClone.GetComponent<Rigidbody>()` gets the **Rigidbody** so that y
 + Try out your lasers now!
 
 ### Adding sound
-Lasers make sounds, right? Lets add a sound to this laser.
+In movies, lasers make sounds, right? Let's add a sound to this laser.
 
 + Click on the laser in the "Prefabs" folder and add an **AudioSource** component (**Component > Audio > Audio Source**).
 
