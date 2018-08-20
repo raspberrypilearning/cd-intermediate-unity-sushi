@@ -1,77 +1,169 @@
-## Move the player
+## Creating Obstacles
 
-+ Create a folder in your Assets folder and name it `Scripts`. Now create a new C# script in your new folder. When you create a script, you want to know what it does, so give it a descriptive name, for example `PlayerController`.
+You'll write a few scripts for your asteroids, so it's a good idea to make a special folder for them to keep everything organized.
 
-+ Attach your new script to your `Player` object.
++ Create a folder called `Asteroids` inside the `Scripts` folder. Now, you will need two new C# scripts: `CreateAsteroids` and `DestroyAsteroid`, so go ahead and create those as well.
 
-+ Open the script and add this code inside the `Update` function:
++ Attach the `CreateAsteroids` script to the `Asteroids` object
+
++ Then add this code in the `CreateAsteroids` file:
 
 ```csharp
-Vector3 mousePos = Input.mousePosition;  
-mousePos.z = 15f;
-transform.position = Camera.main.ScreenToWorldPoint(mousePos);
-```
-
---- collapse ---
----
-title: What does the code do?
----
-
-A **Vector3**s is a **structure**. A structure stores multiple variables in one unit.
-
-Unity uses Vector3 to keep track of an object's position in the world — its (X, Y, Z) coordinates. So, when you set the **Vector3** equal to the `Input.mouseposition`, the `x` and `y` values of the Vector3 are changed each frame (because it is in the `Update` function).
-
-`Input.mousePosition` doesn't change the `z` value of the Vector3. With the second line of code, you're setting the `z` value by using `.` (called the 'dot operator').
-
-The third line of code moves the `Player` object to the position of the mouse:
-* `transform.position` changes the location of your `Player` object
-* `Camera.main.ScreenToWorldPoint(mousePos)` sets the position of your `Player` object in the game world
-
---- /collapse ---
-
-+ Now try to run your game!
-
-What is something that you might want to change about where the `Player` object goes?
-
---- collapse ---
----
-title: Getting a better view
----
-
-It can be helpful to arrange your Unity window so that you can see both the **Scene** tab and the **Game** tab at the same time when you test your game.
-
-In the **Scene** tab, you can change the angle you're viewing from, and zoom out so that you can see objects that go "off the screen". This can be quite usefu, for example when an object is not appearing and you want to work out why, or where it went.
-
-![The Scene and Game view with the Scene zoomed out](images/SceneGameTabs_zoomOut.png)
-
---- /collapse ---
-     
-+ Did you notice that the `Player` object doesn't stay on the screen? You can fix this by adding this section of code below the code you've already added.
-    
-```csharp
-Vector3 spritePos = Camera.main.WorldToViewportPoint(transform.position);
-spritePos.x = Mathf.Clamp(spritePos.x, 0.05f, 0.95f);
-spritePos.y = Mathf.Clamp(spritePos.y, 0.1f, 0.9f);
-transform.position = Camera.main.ViewportToWorldPoint(spritePos);
-```
-
---- collapse ---
----
-title: What does the code do?
----
+public GameObject asteroid;
   
-The first line of code here gets the position of our `Player` object.
+void Update()
+{
+  Vector3 createPosition = Vector3.zero;
+  GameObject asteroidClone = Instantiate(asteroid, createPosition, asteroid.transform.rotation);
+}
+```
 
-You can then use the `Mathf` function `Clamp` to keep the `Player` object within the camera's viewpoint. `Clamp` restricts the position of the `Player` object by preventing the values of its X and Y coordinates from exceeding the given values.
+--- collapse ---
+---
+title: What does the code do?
+---
+
+To understand what's happening here, you need to know what **'instantiate'** means.
+
+Instantiating something is like building something from plans or instructions. If you're baking a cake, the cake is the **instance** and the recipe is the `Instantiate()` function. In the game world, what's being instantiated with this code is not a cake but instead a **GameObject** called `asteroidClone`, using the `asteroid` 'recipe'.
 
 --- /collapse ---
 
-Now the `Player` object follows your cursor, but it would be nice to remove the cursor now!
++ Drag the Asteroid prefab from the `Prefabs` folder and, in the Inspector for your `Asteroids` object, drop it into the **asteroid** box for your `CreateAsteroids` script.
 
-+ Adding this line of code into the `Start` function does will get rid of the cursor:
+![The asteroid prefab in the script](images/step5_asteroidPrefabInVar.png)
+
++ Save everything (**File > Save Scenes**) and try running your game.
+
+WOAH! That was a lot of asteroid clones! 
+
+![Lots of asteroid clone game objects](images/step5_lotsOfAsteroidClones.png)
+
+The `Update()` function runs really fast, so it makes asteroids really quickly. You can control how fast the asteroids are created with the `InvokeRepeating()` function. 
+
++ Add this to your existing code:
 
 ```csharp
-Cursor.visible = false;
+public float creationTime = 1f;
+
+// Use this for initialization
+void Start()
+{
+  // 0f is when to start invoking repeat
+  InvokeRepeating("createAsteroid", 0f, creationTime);
+}
+```
+    
++ Now change `Update()` to `createAsteroid()` and put the Asteroid prefab into the the script's **asteroid** box in the `Asteroids` object Inspector.
+
++ Save the script, and try running the game again. It should create asteroids much more slowly now.
+
+### Cleaning up asteroids
+
+If you create too many objects, your computer wont be able to keep track of them all. So when you create an asteroid, you need to make sure it is destroyed at some point. Let's use the `Destroy()` function in the `DestroyAsteroid` script:
+
++ Attach the `DestroyAsteroid` script to the `Asteroids` object in the Hierarchy.
+
++ Add `Destroy(gameObject, 10f);` to the `Start()` function of the script.
+ 
+--- collapse ---
+---
+title: What does the code do?
+---
+
+Your `Start()` function should look like this:
+
+```csharp
+void Start () {
+  Destroy(gameObject, 10f);
+}
 ```
 
-+ Try running the game and moving the `Player` object with your mouse!
++ `gameObject` is the object the script is attached to (i.e. the asteroid clone)
+
++ `10f` means the asteroid will get destroyed after ten seconds
+ 
+--- /collapse ---
+
+### Make your asteroids move!
+
++ Go back to the `CreateAsteroids` script and add this **above** `Start()`:
+
+```csharp
+public float asteroidSpeed;
+```
+
++ Change the `createAsteroid()` function so that it looks like this:
+
+```csharp
+void createAsteroid () {
+  Vector3 createPosition = Vector3.zero;
+  GameObject asteroidClone = Instantiate(asteroid, createPosition, asteroid.transform.rotation);
+
+  // make the asteroid move
+  Rigidbody asteroidCloneRB = asteroidClone.GetComponent<Rigidbody>();
+  asteroidCloneRB.velocity = -(transform.up * asteroidSpeed);
+}
+```
+
+--- collapse ---
+---
+title: What does the code do?
+---
+
+To make an asteroid move, you need to give it a velocity (a speed), and to do that, you need to get the asteroid's **Rigidbody**.
+
+The line:
+
+```csharp
+Rigidbody asteroidCloneRB = asteroidClone.GetComponent<Rigidbody>();
+```
+
+looks at the asteroid clone you just created and gets its **Rigidbody**.
+
+With the last line, you're changing the **Rigidbody**'s **velocity** property. `-(transform.up)` is the direction to move.
+
+--- /collapse ---
+
++ Back in Unity, click on the `Asteroid` object in the Hierarchy and set **asteroidSpeed** to `2` in the script section of the Inspector. 
+
+![](images/step5_setAsteroidSpeed.png) 
+
+### Randomise where the asteroids appear
+
+Lets make it more fun by creating asteroids in different places. To do this, you can write a function that returns a random position!
+
++ Add this function to the `CreateAsteroids` script:
+  
+```csharp
+Vector3 getRandomPosition()
+{
+    float xPos = Random.Range(.05f, .95f);
+    Vector3 randomPosition = Camera.main.ViewportToWorldPoint(new Vector3(xPos, 1.1f, 15f));
+    return randomPosition;
+}
+```
+
+--- collapse ---
+---
+title: What does the code do?
+---
+
+Putting `Vector3` instead of `void` in front of a function declaration means that the function will return a Vector3 object. 
+  
+`Random.Range(.05f, .95f)` returns a random number between the two numbers given in the **parameters** (a parameter is anything within the parentheses following a function). In this case, that will be a random number in between `0.05` and `0.95`. 
+    
+The camera's viewpoint dimensions are `1` × `1` (the bottom left being `(0,0)` and the top right being `(1,1)`). So the random number `xPos` you'll be using as the X coordinate will always be within the dimensions of the viewpoint.
+  
+You then create a Vector3 object called `randomPosition` and set it to:
+  x — your randomly generated `x` position
+  y — a `y` position that will lead to asteroid clones being created 'above' the screen
+  z — the `z` position that is level with your `Player` object
+
+You then return `randomPosition`.
+  
+--- /collapse ---
+
++  Finally, change `Vector3 createPosition = Vector3.zero;` to `Vector3 createPosition = getRandomPosition();`.
+ 
++ Try the game out!

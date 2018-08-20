@@ -1,45 +1,77 @@
-## Creating your game world
+## Move the player
 
-Cameras are important in Unity. The camera displays what the player of your game sees. Lights in Unity do exactly what they do in real life. You can move lights around to see objects better.
++ Create a folder in your Assets folder and name it `Scripts`. Now create a new C# script in your new folder. When you create a script, you want to know what it does, so give it a descriptive name, for example `PlayerController`.
 
-+ Make sure that the **Transform** of the Main Camera is set to have **Position** `(0, 0, -15)`, and that the **Transform** of the Directional Light is set to have **Position** `(0, 0, -15)`.
++ Attach your new script to your `Player` object.
 
-![The position Transform for the Main Camera](images/step3_MainCameraPos.png)
-![The position Transform for the Directional Light](images/step3_DirLightPos.png)
++ Open the script and add this code inside the `Update` function:
 
-+ Create a 3D Object **Quad**,rename it `Background`, and set its **Transform Position** to `(0, 0, 1)`. Make sure its **Rotation** is `(0, 0, 0)`.
+```csharp
+Vector3 mousePos = Input.mousePosition;  
+mousePos.z = 15f;
+transform.position = Camera.main.ScreenToWorldPoint(mousePos);
+```
 
-+ Drag the "SpaceNebula" image from the `Materials` folder in the Project Viewer and drop it on the `Background` object in the Hierarchy. 
+--- collapse ---
+---
+title: What does the code do?
+---
 
-+ Adjust the **Transform Scale** X and Y values of your `Background` until it covers the entire game display. (Make sure it's set to the **Standalone** Aspect Ratio)
+A **Vector3**s is a **structure**. A structure stores multiple variables in one unit.
 
-![A space background scaled to fit the Game Display](images/step3_background.png)
+Unity uses Vector3 to keep track of an object's position in the world — its (X, Y, Z) coordinates. So, when you set the **Vector3** equal to the `Input.mouseposition`, the `x` and `y` values of the Vector3 are changed each frame (because it is in the `Update` function).
 
-Awesome, you have a background! Now lets add something to control!
+`Input.mousePosition` doesn't change the `z` value of the Vector3. With the second line of code, you're setting the `z` value by using `.` (called the 'dot operator').
 
-+ From the `Prefabs` folder, drag and drop the `Player` object (the spaceship!) onto your scene view. Set its **Transform Position** to `(0, 0, 0)`.
+The third line of code moves the `Player` object to the position of the mouse:
+* `transform.position` changes the location of your `Player` object
+* `Camera.main.ScreenToWorldPoint(mousePos)` sets the position of your `Player` object in the game world
 
-![The Player object placed in the centre of the scene](images/step3_PlayerPos.png)
+--- /collapse ---
 
-Did you notice that the spaceship has a shadow? It doesn't look very good, so you can get rid of it. To select which objects the Directional Light applies to, you use the **Culling Mask** and **Layers** properties of the light.
++ Now try to run your game!
 
-+ Select Directional Light and in its Inspector, click on the **Layers** drop-down menu in the top right.
+What is something that you might want to change about where the `Player` object goes?
 
-+ Select **Add Layer...**. In the first open layer, type `Background`.
+--- collapse ---
+---
+title: Getting a better view
+---
 
-+ Go back to the Directional Light Inspector. Click on the **Culling Mask** drop-down menu and select **Everything**. Now deselect the **Background** in the **Culling Mask**. The **Culling Mask** will now say **Mixed...**.
+It can be helpful to arrange your Unity window so that you can see both the **Scene** tab and the **Game** tab at the same time when you test your game.
 
-![The culling mask settings](images/step3_cullingMask.png)
+In the **Scene** tab, you can change the angle you're viewing from, and zoom out so that you can see objects that go "off the screen". This can be quite usefu, for example when an object is not appearing and you want to work out why, or where it went.
 
-+ Go to your `Background` object's Inspector, select the **Layers** drop-down menu, and set it to the Background layer you just created. Now there will be no more shadow!
+![The Scene and Game view with the Scene zoomed out](images/SceneGameTabs_zoomOut.png)
 
-To control the game with scripts without attaching them to a 3D object, you can use **Empty Objects**.
-
-+ Create an Empty Object (**GameObject > CreateEmpty**). Name this `Asteroids`. 
-
-+ Create another Empty Object called `Lasers`. 
-
-Your scene should look something like this when it is done. (You can use the icons in the top right-hand corner of the scene to look at it from different angles!)
+--- /collapse ---
+     
++ Did you notice that the `Player` object doesn't stay on the screen? You can fix this by adding this section of code below the code you've already added.
     
-![The finished scene](images/SceneComplete.png)
-![The finished scene viewed from above](images/step3_SceneComplete2.png)
+```csharp
+Vector3 spritePos = Camera.main.WorldToViewportPoint(transform.position);
+spritePos.x = Mathf.Clamp(spritePos.x, 0.05f, 0.95f);
+spritePos.y = Mathf.Clamp(spritePos.y, 0.1f, 0.9f);
+transform.position = Camera.main.ViewportToWorldPoint(spritePos);
+```
+
+--- collapse ---
+---
+title: What does the code do?
+---
+  
+The first line of code here gets the position of our `Player` object.
+
+You can then use the `Mathf` function `Clamp` to keep the `Player` object within the camera's viewpoint. `Clamp` restricts the position of the `Player` object by preventing the values of its X and Y coordinates from exceeding the given values.
+
+--- /collapse ---
+
+Now the `Player` object follows your cursor, but it would be nice to remove the cursor now!
+
++ Adding this line of code into the `Start` function does will get rid of the cursor:
+
+```csharp
+Cursor.visible = false;
+```
+
++ Try running the game and moving the `Player` object with your mouse!

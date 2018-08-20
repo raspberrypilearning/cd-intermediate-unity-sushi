@@ -1,59 +1,29 @@
-## Creating lasers
+## Detecting Collisions
 
-+ Inside the `Scripts` folder, create a new folder called `Lasers`. Now create two C# scripts: `CreateLasers` and `DestroyLaser`.
+You have all the components of your game working now. Awesome, but... they don't do anything when they **collide**. **Colliding** is when two objects touch each other. You need to detect the **collision** between the game's objects and write some scripts that do something when a **collision** is detected.
 
-### Firing lasers
++ Before you start, tagging the asteroid prefab will be helpful. Tag the asteroid prefab with "asteroid". Also take this step to attach the "DestroyLaser" and "DestroyAsteroid" scripts to their game objects if you haven't already done so.
 
-+ Start with creating a laser. Attach the `CreateLasers` script to the `Lasers` **GameObject**. Add this code: 
-    
+### Lasers colliding with asteroids
+
++ Open the C# script called "DestroyLaser". Add the following code to the script:
+
 ```csharp
-public GameObject laser;
-public GameObject player;
-
-void Update(){
-    if (Input.GetMouseButtonDown(0))
+public void OnCollisionEnter(Collision col)
+{
+    if (col.gameObject.CompareTag("Asteroid"))
     {
-    Vector3 createPosition = player.transform.position;
-    createPosition.y += 1f;
-    // Create a laser clone
-    GameObject laserClone = Instantiate(laser, createPosition, transform.rotation); 
+    // Destroy both objects
+    Destroy(col.gameObject);
+    Destroy(gameObject);
     }
 }
 ```
   
---- collapse ---
----
-title: What does the code do?
----
-
-Notice that this looks similar to the obstacle that you just created. You've added an `if` statement so that this block of code only runs when the player left clicks.
-
-`player.transform.location` is the center of the player **GameObject**, your spaceship. You don't wan't to create the laser inside of the spaceship, and adding `1` to the `y` value will prevent that. 
-
-You might not have seen this operator here before: `pos.y += 1f;`. Coders are pretty lazy and using these "shorthand" operators allow us to shorten code. `a += b` is the same as ` a = a + b`, but notice how much shorter the first one is! Here is a list of the shorthand operators in C#: [dojo.soy/CSharpShortOps](http://dojo.soy/CSharpShortOps){:target="_blank"}.
-
---- /collapse ---
-
-With this code, left-clicking the mouse is the trigger for firing a laser.
-
-+ If you want, try to allow the player to fire a laser when they press a different button like the spacebar. You can find other input options here: [dojo.soy/CSharpInputs](http://dojo.soy/CSharpInputs){:target="_blank"}.
-
-+ Now, just attach the "Laser" **Prefab** and "Player" **GameObject** to the script.
-  
-### Getting the lasers to move
-
-+ Go back to the "CreateLasers" script and above `Start()` add
++ Now open the "CreateLasers" script and add the following line underneath `GameObject laserClone = Instantiate(laser, createPosition, transform.rotation);`
 
 ```csharp
-public float laserSpeed;
-```
-
-+ Add the following code to the end of `Update()` (so, underneath the line `GameObject laserClone = Instantiate(laser, createPosition, transform.rotation);`):
-
-```csharp
-// Make the clone move
-Rigidbody laserRB = laserClone.GetComponent<Rigidbody>();
-laserRB.velocity = transform.up * laserSpeed;
+laserClone.AddComponent<DestroyLaser>();
 ```
 
 --- collapse ---
@@ -61,23 +31,97 @@ laserRB.velocity = transform.up * laserSpeed;
 title: What does the code do?
 ---
 
-Just like with the asteroids, you need to access the laser's **Rigidbody** to set its velocity.
+`OnCollisionEnter(Collision col)` is a built in function that is called when the object the script is attached to and another object collide.
 
-The code `laserClone.GetComponent<Rigidbody>()` gets the **Rigidbody** so that you can then set the velocity on the next line.
+Within this function you have two **GameObjects** `col.gameObject` and `gameObject`. `gameObject` is what the script is attached to (the laser clone) and `col.gameOBject` is the thing colliding with the laser (the asteroid). 
+
+`col.gameobject.name` returns the name of the object the laser collided with.
+
+The `if` statement is to make sure that if the laser collided with an asteroid (which will be tagged "asteroid"), then the two objects will be destroyed.
+
+Finally, you need to attach the "DestroyLaser" script to each new **instance** of the laser game object. You do this in the "CreateLasers" script, after instantiating the clone:
+
+```csharp
+GameObject laserClone = Instantiate(laser, createPosition, transform.rotation);
+laserClone.AddComponent<DestroyLaser>();
+```
 
 --- /collapse ---
 
-+ Back in Unity, click on the "Laser" object in the Hierarchy and set "laserSpeed" to `20` in the script section of the Inspector.
+Since you're destroying asteroids, you could make it play a sound!
+
++ Create an **Empty** (**GameObject > Create Empty**) and call it "AsteroidExplosion".
+
++ Add an **AudioSource** component to the Empty. Open up the "Audio" Assets folder and drag and drop the "DestroyAsteroidSound" sound into the "AsteroidExplosion" **Inspector** for "Audio Clip". 
+
++ Finally, uncheck the "Play On Awake" property. 
+
+![The Play On Awake checkbox is unticked](images/step7_playOnAwake.png)
+
++ To play the **AudioSource** some code needs to be added into the `if` statement you made above.
+
+```csharp
+AudioSource audio = GameObject.Find("AsteroidExplosion").GetComponent<AudioSource>();
+audio.Play();
+```
+
+--- collapse ---
+---
+title: What does the code do?
+---
+
+The first line finds the game object you made.
+
+The second line tells the game object to play the sound that you added to the **AudioSource**.
+
+--- /collapse ---
+
+### Collisions with the player
+
+Now you can detect a collision with an asteroid and the laser, but not your "Player" **GameObject** and an asteroid.
+
++ Add this code to your "PlayerController" script under the `Update()` function:
+
+```csharp
+void OnCollisionEnter(Collision col)
+{
+    if(col.gameObject.name == "Asteroid(Clone)")
+    {
+        Destroy(gameObject);
+        Destroy(col.gameObject);
+    }
+}
+```
+
+--- collapse ---
+---
+title: Understanding the code
+---
+
+Do you know what the `gameObject` is here?
+
+It is your "Player" object because your script is attached to the "Player" object. 
+
+That means the `col.gameObject` is an asteroid.
+
+--- /collapse ---
+
+Let's play a different noise if the player collides with an asteroid.
+
++ Create another **Empty** and call it "PlayerExplosion".
+
++ Add an **AudioSource** and add the "DestroyPlayerSound" sound to it.
+
++ Finally, add this code to the `OnCollisionEnter()` function in the "Player" script.
+
+```csharp
+AudioSource audio = GameObject.Find("PlayerExplosion").GetComponent<AudioSource>();
+audio.Play();
+```
+   
++ Try shooting after you run into an asteroid! 
+
+You have detected collisions between all of the objects in your game, but did you notice the bug? If you have the time after you finish these Sushi Cards you can try to fix the bug!
+
     
-+ Try out your lasers now!
-
-### Adding sound
-In movies, lasers make sounds, right? Let's add a sound to this laser.
-
-+ Click on the laser in the "Prefabs" folder and add an **AudioSource** component (**Component > Audio > Audio Source**).
-
-+ From the "Audio" folder in "Assets", drag "LaserSound" into the **Audio Clip** property in the "Laser" prefab **Inspector**.
-
-![Drag the sound into the Audio Clip box](images/step6_laserSound.png)
-
-If you run the game you can test the lasers out!
+    
