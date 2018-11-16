@@ -15,4 +15,5 @@ steps:
   - title: Detecting Collisions
   - title: Display the score
   - title: Sharing Your Game
-  - title: Go Further
+  - title: "Challenge: Keyboard controls"
+    challenge: true

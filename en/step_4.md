@@ -1,25 +1,27 @@
 ## Move the player
+Now that you've got a ship on screen, you need to give the player a way to move it!
 
-+ Create a folder in your Assets folder and name it `Scripts`. Now create a new C# script in your new folder. When you create a script, you want to know what it does, so give it a descriptive name, for example `PlayerController`.
+--- task ---
+Create a folder in your Assets folder and name it `Scripts`. Now create a new C# script in your new folder. When you create a script, you want to know what it does, so give it a descriptive name, for example `PlayerController`. 
 
-+ Attach your new script to your `Player` object.
+Attach your new script to your `Player` object.
 
-+ Open the script and add this code inside the `Update` function:
-
+Open the script and add this code inside the `Update` function:
 ```csharp
 Vector3 mousePos = Input.mousePosition;  
 mousePos.z = 15f;
 transform.position = Camera.main.ScreenToWorldPoint(mousePos);
 ```
+--- /task ---
 
 --- collapse ---
 ---
 title: What does the code do?
 ---
 
-A **Vector3**s is a **structure**. A structure stores multiple variables in one unit.
+A `Vector3` is a **structure**. A structure stores multiple variables in one unit.
 
-Unity uses Vector3 to keep track of an object's position in the world — its (X, Y, Z) coordinates. So, when you set the **Vector3** equal to the `Input.mouseposition`, the `x` and `y` values of the Vector3 are changed each frame (because it is in the `Update` function).
+Unity uses `Vector3` to keep track of an object's position in the world — its (X, Y, Z) coordinates. So, when you set the `Vector3` equal to the `Input.mouseposition`, the `x` and `y` values of the Vector3 are changed each frame (because it is in the `Update` function).
 
 `Input.mousePosition` doesn't change the `z` value of the Vector3. With the second line of code, you're setting the `z` value by using `.` (called the 'dot operator').
 
@@ -29,7 +31,9 @@ The third line of code moves the `Player` object to the position of the mouse:
 
 --- /collapse ---
 
-+ Now try to run your game!
+--- task ---
+Now try to run your game!
+--- /task ---
 
 What is something that you might want to change about where the `Player` object goes?
 
@@ -46,7 +50,10 @@ In the **Scene** tab, you can change the angle you're viewing from, and zoom out
 
 --- /collapse ---
      
-+ Did you notice that the `Player` object doesn't stay on the screen? You can fix this by adding this section of code below the code you've already added.
+Did you notice that the `Player` object doesn't stay on the screen? 
+
+--- task ---
+Fix that by adding this section of code below the code you've already added.
     
 ```csharp
 Vector3 spritePos = Camera.main.WorldToViewportPoint(transform.position);
@@ -54,6 +61,7 @@ spritePos.x = Mathf.Clamp(spritePos.x, 0.05f, 0.95f);
 spritePos.y = Mathf.Clamp(spritePos.y, 0.1f, 0.9f);
 transform.position = Camera.main.ViewportToWorldPoint(spritePos);
 ```
+--- /task ---
 
 --- collapse ---
 ---
@@ -68,10 +76,12 @@ You can then use the `Mathf` function `Clamp` to keep the `Player` object within
 
 Now the `Player` object follows your cursor, but it would be nice to remove the cursor now!
 
-+ Adding this line of code into the `Start` function does will get rid of the cursor:
+--- task ---
+Add this line of code into the `Start` function to get rid of the cursor:
 
 ```csharp
 Cursor.visible = false;
 ```
+--- /task ---
 
-+ Try running the game and moving the `Player` object with your mouse!
+Try running the game and moving the `Player` object with your mouse!

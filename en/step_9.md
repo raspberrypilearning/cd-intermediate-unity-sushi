@@ -2,11 +2,12 @@
 
 Only people have who have Unity can play your game right now. You can **build** (package your game up) your project so that you can send it to your friends to try out. 
 
-When you build your game, you are creating an **executable file** for the specific system that you choose. That could be PC, Mac, or Linux. Or it could be on a mobile platform!
+When you build your game, you are creating an **executable file** for the specific system that you choose. That could be PC, Mac, or Linux. Or it could be on a mobile device!
 
-+ To build a game go (**File > Build Settings**).
+--- task ---
++ To build a game go to **File > Build Settings**
 
-+ In the **Platform** menu make sure PC, Mac, Linux Standalone is selected. Make sure the **Target Platform** is the operating system you're using.
++ In the **Platform** menu make sure PC, Mac, Linux Standalone is selected. Make sure the **Target Platform** is the operating system you're using on your computer.
 
 ![The selected platform and target platform](images/step9_BuildSettingsPlatform.png)
 
@@ -19,7 +20,10 @@ When you build your game, you are creating an **executable file** for the specif
 ![Popup message](images/step9_UnityServicesMessage.png)
 
 + A window should pop-up with some settings. Make sure the **resolution** is the same as the resolution you used in your standalone **Game View** in Unity. Also make sure **Windowed** is checked!
+--- /task ---
 
-+ Click **Play!**
+--- task ---
+Click **Play!** and try it out!
+--- /task ---
 
-+ All you need is to give your friends the files and folders that were created in the folder you saved the game to and they can play your new game! (Our file and folder were called `UnityIntermediateSushi.exe` and `UnityIntermediateSushi_Data` for windows. For Mac there was just a file called `UnityIntermediateSushi.app`, and no folder).
+All you need is to give your friends the files and folders that were created in the folder you saved the game to and they can play your new game! Our file and folder were called `UnityIntermediateSushi.exe` and `UnityIntermediateSushi_Data` for Windows. For Mac there was just a file called `UnityIntermediateSushi.app`, and no folder.
