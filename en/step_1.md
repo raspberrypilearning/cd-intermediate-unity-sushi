@@ -35,10 +35,7 @@ title: How to get Unity
 
 #### Unity version
 
-Unity! These Sushi Cards are for Unity version 2017.1, so if you have a different version, the pictures and some of the instructions here might not match exactly.
-
-+ If you don't have Unity already, you'll need to install itsand get it set up on your computer. This might take a while, as it's a big piece of software.
-
+These Sushi Cards are for Unity version 2017.1, so if you have a different version, the pictures and some of the instructions here might not match exactly.
 
 
 ### Additional information for educators

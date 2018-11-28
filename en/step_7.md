@@ -12,8 +12,8 @@ Tag the asteroid prefab with 'asteroid'.
 If you haven't already attached the 'DestroyLaser' and 'DestroyAsteroid' scripts to their game objects, do so now.
 --- /task ---
 
-
 ### Lasers colliding with asteroids
+
 First, make sure that the laser blasts will destroy an asteroid if they hit it, and that they'll vanish when they do so:
 
 --- task ---
@@ -47,38 +47,40 @@ title: What does the code do?
 
 `OnCollisionEnter(Collision col)` is a built in function that is called when the object the script is attached to and another object collide.
 
-Within this function you have two GameObjects: `col.gameObject` and `gameObject`. `gameObject` is what the script is attached to (the laser clone) and `col.gameOBject` is the thing colliding with the laser (the asteroid). 
+Within this function you have two **GameObjects** `col.gameObject` and `gameObject`. `gameObject` is what the script is attached to (the laser clone) and `col.gameOBject` is the thing colliding with the laser (the asteroid). 
 
 `col.gameobject.name` returns the name of the object the laser collided with.
 
-The `if` statement is to make sure that if the laser collided with an asteroid (which will be tagged 'asteroid'), then the two objects will be destroyed.
+The `if` statement is to make sure that if the laser collided with an asteroid (which will be tagged "asteroid"), then the two objects will be destroyed.
 
-Finally, you attach the 'DestroyLaser' script to each new **instance** of the laser game object. You do this in the 'CreateLasers' script, after instantiating the clone:
+Finally, you need to attach the "DestroyLaser" script to each new **instance** of the laser game object. You do this in the "CreateLasers" script, after instantiating the clone:
 
 ```csharp
 GameObject laserClone = Instantiate(laser, createPosition, transform.rotation);
 laserClone.AddComponent<DestroyLaser>();
 ```
+
 --- /collapse ---
 
-Since you're destroying asteroids, you should add a nice sound effect when they explode!
+To reward you player for successfully hitting an asteriod (with a laser, not their ship!), you should add a nice explosion sound!
 
 --- task ---
-Create an **Empty** (**GameObject > Create Empty**) and call it "AsteroidExplosion".
+Create an **Empty** (**GameObject > Create Empty**) and call it `AsteroidExplosion`.
 --- /task ---
 
 --- task ---
- Add an **AudioSource** component to the Empty. Open up the "Audio" Assets folder and drag and drop the "DestroyAsteroidSound" sound into the "AsteroidExplosion" **Inspector** for "Audio Clip". 
+Add an **AudioSource** component to `AsteroidExplosion`. Open up the "Audio" Assets folder and drag and drop the "DestroyAsteroidSound" sound into the `AsteroidExplosion` **Inspector** for "Audio Clip". 
+
 --- /task ---
 
 --- task ---
-Next, uncheck the "Play On Awake" property. 
+Then, uncheck the "Play On Awake" property. 
 
 ![The Play On Awake checkbox is unticked](images/step7_playOnAwake.png)
 --- /task ---
 
 --- task ---
-Finally, to play the **AudioSource**, some code needs to be added into the `if` statement you made above.
+To play the **AudioSource** add this code into the `if` statement you made above.
 
 ```csharp
 AudioSource audio = GameObject.Find("AsteroidExplosion").GetComponent<AudioSource>();
@@ -91,7 +93,7 @@ audio.Play();
 title: What does the code do?
 ---
 
-The first line finds the game object you made.
+The first line finds the game object you made and stores it in a variable called `audio`.
 
 The second line tells the game object to play the sound that you added to the **AudioSource**.
 
@@ -99,10 +101,10 @@ The second line tells the game object to play the sound that you added to the **
 
 ### Collisions with the player
 
-Now you can detect a collision between an asteroid and the laser, but not your "Player" GameObject and an asteroid. Time to fix that!
+Now you can detect a collision with an asteroid and the laser, but not your "Player" **GameObject** and an asteroid. The code below will fix that.
 
 --- task ---
-Add this code to your 'PlayerController' script under the `Update()` function:
+Add this code to your "PlayerController" script under the `Update()` function:
 
 ```csharp
 void OnCollisionEnter(Collision col)
@@ -114,7 +116,6 @@ void OnCollisionEnter(Collision col)
     }
 }
 ```
-
 --- /task ---
 
 --- collapse ---
@@ -130,13 +131,17 @@ That means the `col.gameObject` is an asteroid.
 
 --- /collapse ---
 
-Next, set it up to play a different noise if the player collides with an asteroid.
+Let's play a different noise if the player collides with an asteroid.
 
 --- task ---
 Create another **Empty** and call it "PlayerExplosion".
+--- /task ---
 
+--- task ---
 Add an **AudioSource** and add the "DestroyPlayerSound" sound to it.
+--- /task ---
 
+--- task ---
 Finally, add this code to the `OnCollisionEnter()` function in the "Player" script.
 
 ```csharp
@@ -145,10 +150,5 @@ audio.Play();
 ```
 --- /task ---
 
---- task ---
-Try shooting after you run into an asteroid! 
---- /task ---
-
-
-FIGURE OUT THIS BIT AND ADD A PROPER CHALLENGE
-You have detected collisions between all of the objects in your game, but did you notice the bug? If you have the time after you finish these Sushi Cards you can try to fix the bug!
+    
+    

@@ -16,7 +16,6 @@ The transform of an object in Unity controls its size and location with three pr
  - Position, which uses three **axes** (`x`,`y`,`z`) to control where the object is positioned.
  - Rotation, which can rotate the object around those three axes in degrees.
  - Scale controls how big the object is.
-
 --- /collapse ---
 
 Your game is going to need a cool background, so start by getting one in place!
@@ -43,29 +42,14 @@ From the `Prefabs` folder, drag and drop the `Player` object (the spaceship!) on
 ![The Player object placed in the centre of the scene](images/step3_PlayerPos.png)
 --- /task ---
 
-Did you notice that the spaceship has a shadow? It doesn't look very good, so you can get rid of it. To select which objects the Directional Light applies to, you use the **Culling Mask** and **Layers** properties of the light.
+* Now try to run your game!
+
+Did you notice that the spaceship has a shadow? It doesn't look very good, so you can get rid of it. To select which objects the Directional Light applies to, you use the **Culling Mask** and Layers properties of the light.
 
 --- task ---
  - Select Directional Light and in its Inspector, click on the **Layers** drop-down menu in the top right.
  - Select **Add Layer...**. In the first open layer, type `Background`.
  - Go back to the Directional Light Inspector. Click on the **Culling Mask** drop-down menu and select **Everything**. Now deselect the **Background** in the **Culling Mask**. The **Culling Mask** will now say **Mixed...**.
 
-![The culling mask settings](images/step3_cullingMask.png)
-
  - Go to your `Background` object's Inspector, select the **Layers** drop-down menu, and set it to the Background layer you just created. Now there will be no more shadow!
 --- /task ---
-
-To control the game with scripts without attaching them to a 3D object, you can use **Empty Objects**.
-
---- task ---
- - Create an Empty Object (**GameObject > CreateEmpty**). Name this `Asteroids`. 
---- /task ---
-
---- task ---
- - Create another Empty Object called `Lasers`. 
---- /task ---
-
-Your scene should look something like this when it is done. (You can use the icons in the top right-hand corner of the scene to look at it from different angles!)
-    
-![The finished scene](images/SceneComplete.png)
-![The finished scene viewed from above](images/step3_SceneComplete2.png)

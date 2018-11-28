@@ -3,10 +3,15 @@ Now that you've got a ship on screen, you need to give the player a way to move 
 
 --- task ---
 Create a folder in your Assets folder and name it `Scripts`. Now create a new C# script in your new folder. When you create a script, you want to know what it does, so give it a descriptive name, for example `PlayerController`. 
+--- /task ---
 
+--- task ---
 Attach your new script to your `Player` object.
+--- /task ---
 
-Open the script and add this code inside the `Update` function:
+--- task ---
+Open the script and add this code inside the `Update` function to let your player's mouse control their spaceship.
+
 ```csharp
 Vector3 mousePos = Input.mousePosition;  
 mousePos.z = 15f;
@@ -19,9 +24,9 @@ transform.position = Camera.main.ScreenToWorldPoint(mousePos);
 title: What does the code do?
 ---
 
-A `Vector3` is a **structure**. A structure stores multiple variables in one unit.
+A **Vector3**s is a **structure**. A structure stores multiple variables in one unit.
 
-Unity uses `Vector3` to keep track of an object's position in the world — its (X, Y, Z) coordinates. So, when you set the `Vector3` equal to the `Input.mouseposition`, the `x` and `y` values of the Vector3 are changed each frame (because it is in the `Update` function).
+Unity uses Vector3 to keep track of an object's position in the world — its (X, Y, Z) coordinates. So, when you set the **Vector3** equal to the `Input.mouseposition`, the `x` and `y` values of the Vector3 are changed each frame (because it is in the `Update` function).
 
 `Input.mousePosition` doesn't change the `z` value of the Vector3. With the second line of code, you're setting the `z` value by using `.` (called the 'dot operator').
 
@@ -32,28 +37,15 @@ The third line of code moves the `Player` object to the position of the mouse:
 --- /collapse ---
 
 --- task ---
-Now try to run your game!
+Run the game and test out the controls you've just added
 --- /task ---
 
-What is something that you might want to change about where the `Player` object goes?
-
---- collapse ---
----
-title: Getting a better view
----
-
-It can be helpful to arrange your Unity window so that you can see both the **Scene** tab and the **Game** tab at the same time when you test your game.
-
-In the **Scene** tab, you can change the angle you're viewing from, and zoom out so that you can see objects that go "off the screen". This can be quite usefu, for example when an object is not appearing and you want to work out why, or where it went.
-
-![The Scene and Game view with the Scene zoomed out](images/SceneGameTabs_zoomOut.png)
-
---- /collapse ---
-     
 Did you notice that the `Player` object doesn't stay on the screen? 
 
+In the **Scene** tab, you can change the angle you're viewing from, and zoom out so that you can see objects that go "off the screen". This can be quite usefuL, for example when an object is not appearing and you want to work out why, or where it went.
+
 --- task ---
-Fix that by adding this section of code below the code you've already added.
+Keep the player's ship on screen by by adding this section of code below the code you've already included in the `Update` function
     
 ```csharp
 Vector3 spritePos = Camera.main.WorldToViewportPoint(transform.position);
@@ -74,14 +66,16 @@ You can then use the `Mathf` function `Clamp` to keep the `Player` object within
 
 --- /collapse ---
 
-Now the `Player` object follows your cursor, but it would be nice to remove the cursor now!
+Now the `Player` object follows your mouse cursor, but it would be nice to remove the cursor now!
 
 --- task ---
-Add this line of code into the `Start` function to get rid of the cursor:
+Adding this line of code into the `Start` function to get rid of the cursor:
 
 ```csharp
 Cursor.visible = false;
 ```
 --- /task ---
 
-Try running the game and moving the `Player` object with your mouse!
+--- task ---
+Try running the game again and moving the `Player` object with your mouse! Check that it says on screen!
+--- /task ---

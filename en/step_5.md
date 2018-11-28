@@ -1,13 +1,30 @@
-## Creating Obstacles
+## Creating obstacles
+Now that you've got a player ship, it's time to add some asteriods for them to dodge and blast. You'll use one, invisible, `Asteroids` object and it will create visible asteroids. You'll also need a couple fo scripts to create and remove the asteroids in the game.
 
-You'll write a few scripts for your asteroids, so it's a good idea to make a special folder for them to keep everything organized.
+--- task ---
+ Fist, make that `Asteroids` object: Create an Empty Object (**GameObject > CreateEmpty**). Name this `Asteroids`. 
+--- /task ---
 
-+ Create a folder called `Asteroids` inside the `Scripts` folder. Now, you will need two new C# scripts: `CreateAsteroids` and `DestroyAsteroid`, so go ahead and create those as well.
+--- task ---
+Create a folder called 'Asteroids' inside the Scripts folder.
+--- /task ---
 
-+ Attach the `CreateAsteroids` script to the `Asteroids` object
+--- task ---
+Make a `CreateAsteroids` script inside the 'Asteroids' folder.
+--- /task ---
 
-+ Then add this code in the `CreateAsteroids` file:
+--- task ---
+Make a `DestroyAsteroid` script inside the 'Asteroids' folder.
+--- /task ---
 
+--- task ---
+Attach the `CreateAsteroids` script to the `Asteroids` object
+--- /task ---
+
+Now you're ready to start making asteroids:
+
+--- task ---
+Open the `CreateAsteroids` script and add this code inside the `Update` function:
 ```csharp
 public GameObject asteroid;
   
@@ -17,6 +34,7 @@ void Update()
   GameObject asteroidClone = Instantiate(asteroid, createPosition, asteroid.transform.rotation);
 }
 ```
+--- /task ---
 
 --- collapse ---
 ---
@@ -33,7 +51,6 @@ Instantiating something is like building something from plans or instructions. I
 Drag the Asteroid prefab from the `Prefabs` folder and, in the Inspector for your `Asteroids` object, drop it into the **asteroid** box for your `CreateAsteroids` script.
 
 ![The asteroid prefab in the script](images/step5_asteroidPrefabInVar.png)
-
 --- /task ---
 
 --- task ---
@@ -44,7 +61,7 @@ WOAH! That was a lot of asteroid clones!
 
 ![Lots of asteroid clone game objects](images/step5_lotsOfAsteroidClones.png)
 
-The `Update()` function runs really fast, so it makes asteroids really quickly. You can control how fast the asteroids are created with the `InvokeRepeating()` function. 
+The `Update()` function runs really fast, so it makes asteroids _really_ quickly. You can control how fast the asteroids are created with the `InvokeRepeating()` function, which invokes a particular repeating function on a set schedule. 
 
 --- task ---
 Add this to your existing code:
@@ -56,25 +73,36 @@ public float creationTime = 1f;
 void Start()
 {
   // 0f is when to start invoking repeat
+  // creationTime (currently set to 1) 
+  // is the number of seconds to wait between 
+  // invocations of the "createAsteroid" function
   InvokeRepeating("createAsteroid", 0f, creationTime);
 }
 ```
+--- /task ---
 
+--- task ---
 Now change `Update()` to `createAsteroid()` and put the Asteroid prefab into the the script's **asteroid** box in the `Asteroids` object Inspector.
+--- /task ---
 
+--- task ---
 Save the script, and try running the game again. It should create asteroids much more slowly now.
 --- /task ---
 
+
 ### Cleaning up asteroids
 
-If you create too many objects, your computer wont be able to keep track of them all. So when you create an asteroid, you need to make sure it is destroyed at some point. You can use the `Destroy()` function in the `DestroyAsteroid` script:
+If you create too many objects, your computer wont be able to keep track of them all. So you need to make sure these asteroids are destroyed at some point. You'll use the `Destroy()` function in the `DestroyAsteroid` script:
+
 
 --- task ---
 Attach the `DestroyAsteroid` script to the `Asteroids` object in the Hierarchy.
-
-Add `Destroy(gameObject, 10f);` to the `Start()` function of the script.
 --- /task ---
- 
+
+--- task ---
+Add `Destroy(gameObject, 10f);` to the `Start()` function of the `DestroyAsteroid` script.
+--- /task ---
+
 --- collapse ---
 ---
 title: What does the code do?
@@ -95,7 +123,8 @@ void Start () {
 --- /collapse ---
 
 ### Make your asteroids move!
-You have just the right number of asteroids now, time to make them fly around the screen!
+
+Now you have lots of asteroids, but they don't… do much. In this section, you'll make them move around.
 
 --- task ---
 Go back to the `CreateAsteroids` script and add this **above** `Start()`:
@@ -141,16 +170,14 @@ With the last line, you're changing the **Rigidbody**'s **velocity** property. `
 Back in Unity, click on the `Asteroid` object in the Hierarchy and set **asteroidSpeed** to `2` in the script section of the Inspector. 
 
 ![](images/step5_setAsteroidSpeed.png) 
+
 --- /task ---
-
-
 
 ### Randomise where the asteroids appear
 
-Make it more fun by creating asteroids in different places. To do this, you can write a function that will choose a random position for the asteriod.
+Lets make it more fun by creating asteroids in different places. To do this, you can write a function that returns a random position!
 
---- task ---
-Add this function to the `CreateAsteroids` script:
++ Add this function to the `CreateAsteroids` script:
   
 ```csharp
 Vector3 getRandomPosition()
@@ -167,14 +194,14 @@ Vector3 getRandomPosition()
 title: What does the code do?
 ---
 
-Putting `Vector3` instead of `void` in front of a function declaration means that the function will return a `Vector3` object. 
+Putting `Vector3` instead of `void` in front of a function declaration means that the function will return a Vector3 object. 
   
 `Random.Range(.05f, .95f)` returns a random number between the two numbers given in the **parameters** (a parameter is anything within the parentheses following a function). In this case, that will be a random number in between `0.05` and `0.95`. 
     
 The camera's viewpoint dimensions are `1` × `1` (the bottom left being `(0,0)` and the top right being `(1,1)`). So the random number `xPos` you'll be using as the X coordinate will always be within the dimensions of the viewpoint.
   
 You then create a Vector3 object called `randomPosition` and set it to:
-  x — your randomly chosen `x` position
+  x — your randomly generated `x` position
   y — a `y` position that will lead to asteroid clones being created 'above' the screen
   z — the `z` position that is level with your `Player` object
 
@@ -183,7 +210,10 @@ You then return `randomPosition`.
 --- /collapse ---
 
 --- task ---
-Finally, change `Vector3 createPosition = Vector3.zero;` to `Vector3 createPosition = getRandomPosition();`
+Finally, change `Vector3 createPosition = Vector3.zero;` to `Vector3 createPosition = getRandomPosition();`.
 --- /task ---
 
+--- task ---
 Try the game out!
+--- /task ---
+
