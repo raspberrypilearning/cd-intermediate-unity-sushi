@@ -8,7 +8,7 @@ You will need to unzip the file you downloaded and open the project in Unity. Fe
 
 --- task ---
 Click **Continue** to open the project. If you're using an older version of Unity, you may need to update it before you can open the project.
---- /task ---=
+--- /task ---
 
 Also, depending on what operating system you have, you might get a message like this:
 

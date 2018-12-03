@@ -41,8 +41,9 @@ From the `Prefabs` folder, drag and drop the `Player` object (the spaceship!) on
 
 ![The Player object placed in the centre of the scene](images/step3_PlayerPos.png)
 --- /task ---
-
-* Now try to run your game!
+--- task ---
+Now try to run your game!
+--- /task ---
 
 Did you notice that the spaceship has a shadow? It doesn't look very good, so you can get rid of it. To select which objects the Directional Light applies to, you use the **Culling Mask** and Layers properties of the light.
 

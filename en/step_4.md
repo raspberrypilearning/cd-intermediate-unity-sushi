@@ -2,7 +2,7 @@
 Now that you've got a ship on screen, you need to give the player a way to move it!
 
 --- task ---
-Create a folder in your Assets folder and name it `Scripts`. Now create a new C# script in your new folder. When you create a script, you want to know what it does, so give it a descriptive name, for example `PlayerController`. 
+Create a folder in your Assets folder and name it `Scripts`. Now create a new C# script in your new folder. This program will have a lot of scripts, so it's important to be able to identify them easily. Call this one `PlayerController`. 
 --- /task ---
 
 --- task ---

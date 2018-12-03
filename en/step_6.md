@@ -6,7 +6,7 @@ Just like with the asteroids, you'll be using an empty `Lasers` object to create
  Create an Empty Object (GameObject > CreateEmpty). Name this Lasers.
 --- /task ---
 
-You'll also, as with the asteroids, have a pair of scripts to create and destoruy 
+You'll also, as with the asteroids, have a pair of scripts to create and destroy 
 
 --- task ---
 Inside the `Scripts` folder, create a new folder called `Lasers`. Now create two C# scripts: `CreateLasers` and `DestroyLaser`.
@@ -17,7 +17,11 @@ Inside the `Scripts` folder, create a new folder called `Lasers`. Now create two
 You're going to start with creating a laser (it's got to exist before you can destroy it, after all!). 
 
 --- task ---
-Attach the `CreateLasers` script to the `Lasers` **GameObject**. Add this code: 
+Attach the `CreateLasers` script to the `Lasers` **GameObject**.
+--- /task ---
+
+--- task ---
+Add this code to the `CreateLasers` script: 
     
 ```csharp
 public GameObject laser;
@@ -50,7 +54,7 @@ You might not have seen this operator here before: `pos.y += 1f;`. Coders are pr
 
 With this code, left-clicking the mouse is the trigger for firing a laser.
 
-If you want, you can try to allow the player to fire a laser when they press a different button like the spacebar. You can find other input options here: [dojo.soy/CSharpInputs](http://dojo.soy/CSharpInputs){:target="_blank"}.
+If you want, you can try to allow the player to fire a laser when they press a different button like the spacebar. You can find other input options at [dojo.soy/CSharpInputs](http://dojo.soy/CSharpInputs){:target="_blank"}.
 
 --- task ---
 Now, just attach the "Laser" **Prefab** and "Player" **GameObject** to the script.

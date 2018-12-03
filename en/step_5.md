@@ -1,8 +1,9 @@
 ## Creating obstacles
 Now that you've got a player ship, it's time to add some asteriods for them to dodge and blast. You'll use one, invisible, `Asteroids` object and it will create visible asteroids. You'll also need a couple fo scripts to create and remove the asteroids in the game.
 
+ Fist, make that `Asteroids` object: 
 --- task ---
- Fist, make that `Asteroids` object: Create an Empty Object (**GameObject > CreateEmpty**). Name this `Asteroids`. 
+Create an Empty Object (**GameObject > CreateEmpty**). Name this `Asteroids`. 
 --- /task ---
 
 --- task ---
@@ -64,7 +65,7 @@ WOAH! That was a lot of asteroid clones!
 The `Update()` function runs really fast, so it makes asteroids _really_ quickly. You can control how fast the asteroids are created with the `InvokeRepeating()` function, which invokes a particular repeating function on a set schedule. 
 
 --- task ---
-Add this to your existing code:
+Add this to your existing code in `CreateAsteroids`:
 
 ```csharp
 public float creationTime = 1f;
@@ -72,14 +73,21 @@ public float creationTime = 1f;
 // Use this for initialization
 void Start()
 {
-  // 0f is when to start invoking repeat
-  // creationTime (currently set to 1) 
-  // is the number of seconds to wait between 
-  // invocations of the "createAsteroid" function
   InvokeRepeating("createAsteroid", 0f, creationTime);
 }
 ```
 --- /task ---
+
+--- collapse ---
+---
+title: What does the code do?
+---
+This code sets up the `InvokeRepeating` function to run when the object is created. The function takes three parameters:
+
+  * "createAsteroid" is the function to repeat
+  * 0f is when to start invoking repeat
+  * creationTime (currently set to 1) is the number of seconds to wait between invocations of the "createAsteroid" function
+--- /collapse ---
 
 --- task ---
 Now change `Update()` to `createAsteroid()` and put the Asteroid prefab into the the script's **asteroid** box in the `Asteroids` object Inspector.
@@ -177,7 +185,8 @@ Back in Unity, click on the `Asteroid` object in the Hierarchy and set **asteroi
 
 Lets make it more fun by creating asteroids in different places. To do this, you can write a function that returns a random position!
 
-+ Add this function to the `CreateAsteroids` script:
+--- task ---
+Add this function to the `CreateAsteroids` script:
   
 ```csharp
 Vector3 getRandomPosition()

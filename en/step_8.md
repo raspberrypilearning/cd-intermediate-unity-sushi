@@ -52,7 +52,7 @@ title: Why do you need the word 'public'?
 
 You may have seen the keywords **public** and **private** in your time with Unity. 
 
-These keywords are **Access Modifiers**, and they (as you probably guessed) set the access level of a type or member that they modify.
+These keywords are **Access Modifiers**, and they (as you probably guessed) set the access level of an object that they modify.
 
 For example, if you have a variable, adding **public** means that any code in your project can access the variable. Adding **private** means the variable can be only accessed from code inside of the same class.
 
@@ -63,11 +63,18 @@ If you don't put an **Access Modifier**, by default they will be **private**.
 Now that you have a variable to change, you can update the score in the `OnCollisionEnter()` function of the "DestroyLaser" script. First you need to make sure you can get the score from the "PlayerController" script.
 
 --- task ---
-In the "DestroyLaser" script, add the lines `PlayerController playerScript;` and `Text displayedScore;` above `Start()`. This creates two new variables in your program.
+In the "DestroyLaser" script add the following lines of code above the `Start()` function. 
+
+```csharp
+PlayerController playerScript;
+Text displayedScore;
+```
+
+This creates two new variables in your program.
 --- /task ---
 
 --- task ---
-Now add this code to the `Start()` function of the "DestroyLaser":
+Now add this code to the `Start()` function of the "DestroyLaser" script:
 
 ```csharp
 playerScript = GameObject.Find("Player").GetComponent<PlayerController>();
@@ -103,15 +110,22 @@ Add a new **UI Text** element to your canvas and call it "WinOrLose". Make the t
 Next you will update the "PlayerController" script so that it updates the "WinOrLose" text based on the player losing or winning your game. Since the code will be the same for losing and winning, you will create a **function** so that you don't have duplicate code.
 
 --- task ---
-Add `Text endgameText;` above the `Start()` function in your "PlayerController" script.
+Above the `Start()` function in your "PlayerController" script, add the following code:
+
+```csharp
+Text endgameText; 
+```
 --- /task ---
 
 --- task ---
-In the `Start()` function of the "PlayerController" script use `endgameText = GameObject.Find("WinOrLose").GetComponent<Text>();` to find the Text **GameObject**.
+Inside the `Start()` function of the "PlayerController" script add the following line of code to find the "WinOrLose" UI Text element you created.
+```csharp
+endgameText = GameObject.Find("WinOrLose").GetComponent<Text>();
+```
 --- /task ---
 
 --- task ---
-Create a function with this code (add it after the `OnCollisionEnter` function:
+After the `OnCollisionEnter` function, add the function below:
 
 ```csharp
 void endGame(string text)
@@ -127,7 +141,7 @@ void endGame(string text)
 title: How does the new function work?
 ---
 
-This **function** requires a **parameter**. This way you can display any text when the function is called.
+This **function** requires a **parameter** containing the text you want to display. This way you can display any text when the function is called.
 
 `Time.timeScale` is the speed the game is running at... setting it to `0` stops time in the game.
 

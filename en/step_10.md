@@ -1,3 +1,3 @@
 ## Challenge: Keyboard controls
 
-Now that the game works, try making it even more like the old arcade games it's based on: add keyboard controls for the spaceship! If you need to see an example of using the keyboard to control a character, check out the [beginner unity sushi cards](https://projects.raspberrypi.org/en/projects/cd-beginner-unity-sushi){:target="_blank"}. You can find a list of keys you can use at [dojo.soy/CSharpInputs](http://dojo.soy/CSharpInputs){:target="_blank"}. 
+Now that the game works, try making it even more like the old arcade games it's based on: add keyboard controls for the spaceship! If you need to see an example of using the keyboard to control a character, check out the [beginner unity sushi cards](https://projects.raspberrypi.org/en/projects/cd-beginner-unity-sushi){:target="_blank"}. You can find a list of keys you can use at [dojo.soy/CSharpInputs](http://dojo.soy/CSharpInputs){:target="_blank"}.
