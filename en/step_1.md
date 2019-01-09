@@ -35,7 +35,7 @@ title: How to get Unity
 
 #### Unity version
 
-These Sushi Cards are for Unity version 2017.1, so if you have a different version, the pictures and some of the instructions here might not match exactly.
+These Sushi Cards are for Unity version 2018.3, so if you have a different version, the pictures and some of the instructions here might not match exactly.
 
 
 ### Additional information for educators
