@@ -6,7 +6,7 @@ Create a folder in your Assets folder and name it `Scripts`. Now create a new C#
 --- /task ---
 
 --- task ---
-Attach your new script to your `Player` object.
+Attach your new script to your `Player` object by selecting the `Player` and dragging the script into the inspector pannel.
 --- /task ---
 
 --- task ---
@@ -66,7 +66,7 @@ You can then use the `Mathf` function `Clamp` to keep the `Player` object within
 
 --- /collapse ---
 
-Now the `Player` object follows your mouse cursor, but it would be nice to remove the cursor now!
+Now the `Player` object follows your mouse cursor, but it would be nice to remove the cursor. Let's do that.
 
 --- task ---
 Adding this line of code into the `Start` function to get rid of the cursor:

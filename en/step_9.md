@@ -13,7 +13,7 @@ In the **Platform** menu make sure PC, Mac, Linux Standalone is selected. Make s
 
 ![The selected platform and target platform](images/step9_BuildSettingsPlatform.png)
 
-Click **Player Settings** in the bottom right. This will bring up the Player Settings in the **Inspector**. Make up a **CompanyName** and make a game name for the **Product Name**. You can also set the **Default Icon** to the "GameIcon". 
+Click **Player Settings** at the bottom of the Build Settings window. This will bring up the Player Settings in the **Inspector**. Make up a **CompanyName** and make a game name for the **Product Name**. You can also set the **Default Icon** to the "GameIcon". 
 
 Back in the **Build Settings** click **Build and Run**. Save your game as anything you want (we used `SpaceRocks`). Make sure you remember the location you save it to (it's a good idea to put it in its own new folder) so you can find it later!
 
@@ -29,6 +29,6 @@ Click **Play!** and test out your game!
 --- /task ---
 
 
-All you need is to give your friends the files and folders that were created in the folder you saved the game to and they can play your new game! 
+All you need is to give your friends the files and folders that were created in the folder you saved the game to, and they can play your new game! 
 
-Our file and folder were called `SpaceRocks.exe` and `SpaceRocks_Data` for windows. For Mac there was just a file called `SpaceRocks.app`, and no folder.
+Our file and folder were called `SpaceRocks.exe` and `SpaceRocks_Data` for Windows. For Mac there was just a file called `SpaceRocks.app`, and no folder.

@@ -3,7 +3,7 @@
 The **Graphical User Interface (GUI)** is how your game can display information to the player. You're going to add a score to your game and make the player win or lose.
 
 --- task ---
-Add `using UnityEngine.UI;` to the top of the "PlayerController" and "DestroyLaser" scripts.
+Add `using UnityEngine.UI;` to the top of the 'PlayerController' and 'DestroyLaser' scripts.
 --- /task ---
 
 --- task ---
@@ -11,7 +11,7 @@ Create an **UI Text** element (**GameObject > UI > Text**) and rename it `Score`
 --- /task ---
 
 --- task ---
-In the "Score" **Inspector** there is a text box in the **Text (Script)** section. Change the text to `Score: 0`. 
+In the 'Score' **Inspector** there is a text box in the **Text (Script)** section. Change the text to `Score: 0`. 
 --- /task ---
 
 This also added an object to your hierarchy called a **Canvas**, this is where all of your GUI elements will be displayed.
@@ -29,7 +29,7 @@ Use the text element's **Rect Transform** in the **Inspector** to move the score
 
 --- /task ---
 
-Now that you have a place to display the score, you need to update the score. You should update the score when a laser collides withan asteroid. The code that detects that collision is in the "DestroyLaser" script. However, you need a variable to keep track of the player's score. The score can't be put in the "DestroyLaser" script because it will be destroyed every time the laser it is attached to is destroyed! The "Player" object is active until the end of the game, so you can store the score there.
+Now that you have a place to display the score, you need to update the score. You should update the score when a laser collides withan asteroid. The code that detects that collision is in the 'DestroyLaser' script. However, you need a variable to keep track of the player's score. The score can't be put in the 'DestroyLaser' script because it will be destroyed every time the laser it is attached to is destroyed! The 'Player' object is active until the end of the game, so you can store the score there.
 
 --- task ---
 Add the code below to the "PlayerController" script, above `Start()`. 
@@ -50,13 +50,13 @@ Add the code below to the "PlayerController" script, above `Start()`.
 title: Why do you need the word 'public'?
 ---
 
-You may have seen the keywords **public** and **private** in your time with Unity. 
+You may have seen the keywords `public` and `private` in your time with Unity. 
 
-These keywords are **Access Modifiers**, and they (as you probably guessed) set the access level of an object that they modify.
+These keywords are **Access Modifiers**, and they set the access level of an object that they modify.
 
-For example, if you have a variable, adding **public** means that any code in your project can access the variable. Adding **private** means the variable can be only accessed from code inside of the same class.
+For example, if you have a variable, adding `public` means that any code in your project can access the variable. Adding `private` means the variable can be only accessed from code inside of the same class.
 
-If you don't put an **Access Modifier**, by default they will be **private**. 
+If you don't put an **Access Modifier**, by default a variable will be `private`. 
 
 --- /collapse ---
    
@@ -83,7 +83,7 @@ displayedScore = GameObject.Find("Score").GetComponent<Text>();
 --- /task ---
 
 --- task ---
-Add this to the `OnCollisionEnter()` function:
+Add this to the `OnCollisionEnter()` function, inside the `if` statement that detects whether the object is an asteroid:
 
 ```csharp
 playerScript.score += 1;
@@ -98,14 +98,17 @@ title: What does the new code do?
 
 The first part is how you access the public score variable you made in the Player class. It means find the "Player" object and get the "PlayerController" script. 
 
-You access the score with the **dot operator** and add one to the score. `displayedScore.text` is the text that is displayed to the screen for the players score. **ToString()** just converts the score, which is a number, into a string so it can be displayed. 
+You access the score with the **dot operator** and add one to the score. `displayedScore.text` is the text that is displayed to the screen for the players score. `ToString()` just converts the score, which is a number, into a string so it can be displayed. 
 
 --- /collapse ---
 
 --- task ---
-Add a new **UI Text** element to your canvas and call it "WinOrLose". Make the text style match your score's text style, then remove all the text from the text box. Change the width of the **Rect Transform** to `200`, and change the **x** and **y** position both the `0` to place it in the centre of the screen.
+Add a new **UI Text** element to your canvas and call it 'WinOrLose'. Make the text style match your score's text style, then remove all the text from the text box. Change the width of the **Rect Transform** to `200`, and change both the **x** and **y** position to `0`, to place it in the centre of the screen.
 --- /task ---
 
+--- task ---
+Change the colour and font size of the win or lose message to make it readable and then delete the Text in the inspector so it can't be seen until you set a message.
+--- /task ---
 
 Next you will update the "PlayerController" script so that it updates the "WinOrLose" text based on the player losing or winning your game. Since the code will be the same for losing and winning, you will create a **function** so that you don't have duplicate code.
 

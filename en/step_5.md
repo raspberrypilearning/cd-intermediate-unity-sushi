@@ -1,7 +1,8 @@
 ## Creating obstacles
-Now that you've got a player ship, it's time to add some asteriods for them to dodge and blast. You'll use one, invisible, `Asteroids` object and it will create visible asteroids. You'll also need a couple fo scripts to create and remove the asteroids in the game.
+Now that you've got a player ship, it's time to add some asteriods for them to dodge and blast. You'll use one, invisible, `Asteroids` object and it will create visible asteroids. You'll also need a script to create and remove the asteroids in the game.
 
- Fist, make that `Asteroids` object: 
+First, make that `Asteroids` object: 
+
 --- task ---
 Create an Empty Object (**GameObject > CreateEmpty**). Name this `Asteroids`. 
 --- /task ---
@@ -15,25 +16,20 @@ Make a `CreateAsteroids` script inside the 'Asteroids' folder.
 --- /task ---
 
 --- task ---
-Make a `DestroyAsteroid` script inside the 'Asteroids' folder.
---- /task ---
-
---- task ---
 Attach the `CreateAsteroids` script to the `Asteroids` object
 --- /task ---
 
 Now you're ready to start making asteroids:
 
 --- task ---
-Open the `CreateAsteroids` script and add this code inside the `Update` function:
+Open the `CreateAsteroids` script and add the following line of code on a new line just below the opening of your `CreateAsteroids` class:
 ```csharp
 public GameObject asteroid;
-  
-void Update()
-{
-  Vector3 createPosition = Vector3.zero;
-  GameObject asteroidClone = Instantiate(asteroid, createPosition, asteroid.transform.rotation);
-}
+```
+Then add these lines inside your `Update()` function.
+```csharp
+Vector3 createPosition = Vector3.zero;
+GameObject asteroidClone = Instantiate(asteroid, createPosition, asteroid.transform.rotation);
 ```
 --- /task ---
 
@@ -65,16 +61,15 @@ WOAH! That was a lot of asteroid clones!
 The `Update()` function runs really fast, so it makes asteroids _really_ quickly. You can control how fast the asteroids are created with the `InvokeRepeating()` function, which invokes a particular repeating function on a set schedule. 
 
 --- task ---
-Add this to your existing code in `CreateAsteroids`:
+Add this line of code to your existing code in the `CreateAsteroids` class, just below the line where you created the `asteroid` GameObject:
 
 ```csharp
 public float creationTime = 1f;
+```
 
-// Use this for initialization
-void Start()
-{
-  InvokeRepeating("createAsteroid", 0f, creationTime);
-}
+Then add this line to the `Start()` function
+```csharp
+InvokeRepeating("CreateAsteroid", 0f, creationTime);
 ```
 --- /task ---
 
@@ -90,7 +85,7 @@ This code sets up the `InvokeRepeating` function to run when the object is creat
 --- /collapse ---
 
 --- task ---
-Now change `Update()` to `createAsteroid()` and put the Asteroid prefab into the the script's **asteroid** box in the `Asteroids` object Inspector.
+Now change `Update()` to `CreateAsteroid()`.
 --- /task ---
 
 --- task ---
@@ -100,15 +95,14 @@ Save the script, and try running the game again. It should create asteroids much
 
 ### Cleaning up asteroids
 
-If you create too many objects, your computer wont be able to keep track of them all. So you need to make sure these asteroids are destroyed at some point. You'll use the `Destroy()` function in the `DestroyAsteroid` script:
-
-
---- task ---
-Attach the `DestroyAsteroid` script to the `Asteroids` object in the Hierarchy.
---- /task ---
+If you create too many objects, your computer wont be able to keep track of them all. So you need to make sure these asteroids are destroyed at some point. You'll use the `Destroy()` function in the `CreateAsteroid` script to set a timer for how long an asteroid will exist:
 
 --- task ---
-Add `Destroy(gameObject, 10f);` to the `Start()` function of the `DestroyAsteroid` script.
+Add the following line of code to at the end of the `CreateAsteroid` function of the `CreateAsteroids` script:
+
+```csharp
+Destroy(asteroidCloneRB, 10f);
+```
 --- /task ---
 
 --- collapse ---
@@ -116,18 +110,19 @@ Add `Destroy(gameObject, 10f);` to the `Start()` function of the `DestroyAsteroi
 title: What does the code do?
 ---
 
-Your `Start()` function should look like this:
+Your `CreateAsteroid()` function should look something like this:
 
 ```csharp
-void Start () {
-  Destroy(gameObject, 10f);
+void CreateAsteroid() {
+  Vector3 createPosition = getRandomPosition();
+  GameObject asteroidClone = Instantiate(asteroid, createPosition, asteroid.transform.rotation);
+
+  // destroy it after 10 seconds
+  Destroy(asteroidClone, 10f);
 }
 ```
 
-+ `gameObject` is the object the script is attached to (i.e. the asteroid clone)
-
-+ `10f` means the asteroid will get destroyed after ten seconds
- 
+The new line you've added — `Destroy(asteroidClone, 10f);` — instructs the code to destroy (remove from the game) the `asteroidClone`. The `10f` tells it to wait ten seconds before doing so.
 --- /collapse ---
 
 ### Make your asteroids move!
@@ -141,16 +136,19 @@ Go back to the `CreateAsteroids` script and add this **above** `Start()`:
 public float asteroidSpeed;
 ```
 
-+ Change the `createAsteroid()` function so that it looks like this:
+Change the `CreateAsteroid()` function so that it looks like this:
 
 ```csharp
-void createAsteroid () {
-  Vector3 createPosition = Vector3.zero;
-  GameObject asteroidClone = Instantiate(asteroid, createPosition, asteroid.transform.rotation);
+void CreateAsteroid() {
+    Vector3 createPosition = getRandomPosition();
+    GameObject asteroidClone = Instantiate(asteroid, createPosition, asteroid.transform.rotation);
 
-  // make the asteroid move
-  Rigidbody asteroidCloneRB = asteroidClone.GetComponent<Rigidbody>();
-  asteroidCloneRB.velocity = -(transform.up * asteroidSpeed);
+    // make the asteroid move
+    Rigidbody asteroidCloneRB = asteroidClone.GetComponent<Rigidbody>();
+    asteroidCloneRB.velocity = -(transform.up * asteroidSpeed);
+
+    // destroy it after 10 seconds
+    Destroy(asteroidClone, 10f);
 }
 ```
 --- /task ---
@@ -186,7 +184,7 @@ Back in Unity, click on the `Asteroid` object in the Hierarchy and set **asteroi
 Lets make it more fun by creating asteroids in different places. To do this, you can write a function that returns a random position!
 
 --- task ---
-Add this function to the `CreateAsteroids` script:
+Add this function to the `CreateAsteroids` script, inside the `CreateAsteroids` class:
   
 ```csharp
 Vector3 getRandomPosition()
@@ -219,7 +217,7 @@ You then return `randomPosition`.
 --- /collapse ---
 
 --- task ---
-Finally, change `Vector3 createPosition = Vector3.zero;` to `Vector3 createPosition = getRandomPosition();`.
+In `CreateAsteroid()` change `Vector3 createPosition = Vector3.zero;` to `Vector3 createPosition = getRandomPosition();`.
 --- /task ---
 
 --- task ---

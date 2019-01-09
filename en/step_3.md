@@ -21,7 +21,7 @@ The transform of an object in Unity controls its size and location with three pr
 Your game is going to need a cool background, so start by getting one in place!
 
 --- task ---
-Create a 3D Object **Quad**,rename it `Background`, and set its **Transform Position** to `(0, 0, 1)`. Make sure its **Rotation** is `(0, 0, 0)`.
+Create a 3D Object **Quad** (**Game Object > 3D Object > Quad**),rename it `Background`, and set its **Transform Position** to `(0, 0, 1)`. Make sure its **Rotation** is `(0, 0, 0)`.
 --- /task ---
 
 --- task ---

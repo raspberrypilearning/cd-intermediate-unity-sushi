@@ -9,7 +9,7 @@ Tag the asteroid prefab with 'asteroid'.
 --- /task ---
 
 --- task ---
-If you haven't already attached the 'DestroyLaser' and 'DestroyAsteroid' scripts to their game objects, do so now.
+If you haven't already attached the 'DestroyLaser' script to the  'Lasers' game object, do so now.
 --- /task ---
 
 ### Lasers colliding with asteroids
@@ -53,7 +53,7 @@ Within this function you have two **GameObjects** `col.gameObject` and `gameObje
 
 The `if` statement is to make sure that if the laser collided with an asteroid (which will be tagged "asteroid"), then the two objects will be destroyed.
 
-Finally, you need to attach the "DestroyLaser" script to each new **instance** of the laser game object. You do this in the "CreateLasers" script, after instantiating the clone:
+Finally, you need to attach the 'DestroyLaser' script to each new **instance** of the laser game object. You do this in the 'CreateLasers' script, after instantiating the clone:
 
 ```csharp
 GameObject laserClone = Instantiate(laser, createPosition, transform.rotation);
@@ -65,7 +65,7 @@ laserClone.AddComponent<DestroyLaser>();
 To reward you player for successfully hitting an asteriod (with a laser, not their ship!), you should add a nice explosion sound!
 
 --- task ---
-Create an **Empty** (**GameObject > Create Empty**) and call it `AsteroidExplosion`.
+Create an Empty GameObject (**GameObject > Create Empty**) and call it `AsteroidExplosion`.
 --- /task ---
 
 --- task ---
@@ -104,7 +104,7 @@ The second line tells the game object to play the sound that you added to the **
 Now you can detect a collision with an asteroid and the laser, but not your "Player" **GameObject** and an asteroid. The code below will fix that.
 
 --- task ---
-Add this code to your "PlayerController" script under the `Update()` function:
+Add this code to your "PlayerController" script after the `Update()` function:
 
 ```csharp
 void OnCollisionEnter(Collision col)
@@ -137,8 +137,10 @@ Let's play a different noise if the player collides with an asteroid.
 Create another **Empty** and call it "PlayerExplosion".
 --- /task ---
 
+You can re-use the asteroid explosion sound here, or add one of your own by dragging it into Unity and storing it in the **Assets>Audio** folder.
+
 --- task ---
-Add an **AudioSource** and add the "DestroyPlayerSound" sound to it.
+Add an **AudioSource** and add the "DestroyAsteroidSound" sound to it.
 --- /task ---
 
 --- task ---
